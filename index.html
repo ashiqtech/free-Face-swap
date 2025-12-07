@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceSwap AI | Free Online Face Swapping Tool</title>
+    <meta name="description" content="Free AI-powered face swapping tool. Swap faces in images instantly with our advanced AI technology. No registration required.">
+    <meta name="keywords" content="faceswap, face swap, AI face swap, face swapping online, free face swap, photo editor">
+    <meta name="author" content="FaceSwap AI">
+    <meta property="og:title" content="FaceSwap AI | Free Online Face Swapping Tool">
+    <meta property="og:description" content="Swap faces in images instantly with our advanced AI technology.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://faceswap-ai.example.com">
+    <meta property="og:image" content="https://faceswap-ai.example.com/preview.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6d28d9;
+            --primary-dark: #5b21b6;
+            --secondary: #f0f9ff;
+            --accent: #f59e0b;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --light: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Main App Section */
+        .app-section {
+            padding: 40px 0 80px;
+        }
+        
+        .app-container {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .upload-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-section {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .upload-box {
+            border: 2px dashed #d1d5db;
+            border-radius: var(--radius);
+            padding: 40px 20px;
+            text-align: center;
+            transition: var(--transition);
+            background-color: var(--secondary);
+        }
+        
+        .upload-box:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-box i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .upload-box h3 {
+            margin-bottom: 10px;
+        }
+        
+        .upload-box p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .upload-btn {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .upload-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .preview-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .preview-box {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #f8fafc;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+        }
+        
+        .preview-placeholder {
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        .preview-placeholder i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+        
+        .swap-icon {
+            font-size: 40px;
+            color: var(--primary);
+        }
+        
+        .action-section {
+            text-align: center;
+        }
+        
+        .swap-btn {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 16px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px -1px rgba(109, 40, 217, 0.3);
+        }
+        
+        .swap-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .swap-btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .result-box {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #f8fafc;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        
+        .result-image {
+            max-width: 100%;
+            max-height: 400px;
+            display: none;
+        }
+        
+        .download-btn {
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .download-btn:hover {
+            background-color: #d97706;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--secondary);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .preview-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                gap: 20px;
+            }
+            
+            .swap-icon {
+                transform: rotate(90deg);
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .mobile-menu ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .app-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-user-circle"></i>
+                    <span>FaceSwap AI</span>
+                </a>
+                
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#app">FaceSwap</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#app">FaceSwap</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Swap Faces with <span>AI Technology</span></h1>
+            <p>Upload two photos and let our AI swap faces instantly. No registration required. Completely free to use with high-quality results.</p>
+        </div>
+    </section>
+
+    <!-- Main App Section -->
+    <section class="app-section" id="app">
+        <div class="container">
+            <div class="app-container">
+                <div class="upload-section">
+                    <!-- Source Image Upload -->
+                    <div class="upload-box" id="sourceUpload">
+                        <i class="fas fa-user"></i>
+                        <h3>Source Face</h3>
+                        <p>Upload the photo containing the face you want to use</p>
+                        <label class="upload-btn">
+                            Choose Image
+                            <input type="file" id="sourceInput" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
+                    
+                    <!-- Target Image Upload -->
+                    <div class="upload-box" id="targetUpload">
+                        <i class="fas fa-portrait"></i>
+                        <h3>Target Face</h3>
+                        <p>Upload the photo where you want to place the face</p>
+                        <label class="upload-btn">
+                            Choose Image
+                            <input type="file" id="targetInput" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Preview Section -->
+                <div class="preview-container">
+                    <!-- Source Preview -->
+                    <div class="preview-box">
+                        <img id="sourcePreview" class="preview-image" alt="Source face preview">
+                        <div id="sourcePlaceholder" class="preview-placeholder">
+                            <i class="fas fa-user"></i>
+                            <p>Source face will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Swap Icon -->
+                    <div class="swap-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    
+                    <!-- Target Preview -->
+                    <div class="preview-box">
+                        <img id="targetPreview" class="preview-image" alt="Target face preview">
+                        <div id="targetPlaceholder" class="preview-placeholder">
+                            <i class="fas fa-portrait"></i>
+                            <p>Target face will appear here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Section -->
+                <div class="action-section">
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>AI is processing your images. This may take a moment...</p>
+                    </div>
+                    
+                    <button class="swap-btn" id="swapBtn">
+                        <i class="fas fa-magic"></i>
+                        Swap Faces Now
+                    </button>
+                </div>
+                
+                <!-- Result Section -->
+                <div class="result-section" id="resultSection" style="display: none;">
+                    <h3>Face Swap Result</h3>
+                    <div class="result-box">
+                        <img id="resultImage" class="result-image" alt="Face swap result">
+                        <div id="resultPlaceholder" class="preview-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Your face swap result will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <button class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i>
+                        Download Result
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose FaceSwap AI</h2>
+                <p>Our AI-powered face swapping tool offers the best features for creating realistic and fun face swaps</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Processing</h3>
+                    <p>Get results in seconds with our optimized AI algorithms that process images quickly.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Privacy Guaranteed</h3>
+                    <p>Your images are processed securely and never stored on our servers after processing.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-crown"></i>
+                    <h3>High Quality</h3>
+                    <p>Advanced AI ensures realistic face swaps with high resolution and natural blending.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Browser-Based</h3>
+                    <p>No downloads or installations required. Works directly in your web browser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FaceSwap AI</h3>
+                    <p>Free AI-powered face swapping tool for creating fun and realistic face swaps instantly.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#app">FaceSwap Tool</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:support@faceswap-ai.example.com">support@faceswap-ai.example.com</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 FaceSwap AI. All rights reserved. This is a demonstration project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const sourceInput = document.getElementById('sourceInput');
+        const targetInput = document.getElementById('targetInput');
+        const sourcePreview = document.getElementById('sourcePreview');
+        const targetPreview = document.getElementById('targetPreview');
+        const sourcePlaceholder = document.getElementById('sourcePlaceholder');
+        const targetPlaceholder = document.getElementById('targetPlaceholder');
+        const swapBtn = document.getElementById('swapBtn');
+        const resultSection = document.getElementById('resultSection');
+        const resultImage = document.getElementById('resultImage');
+        const resultPlaceholder = document.getElementById('resultPlaceholder');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const loading = document.getElementById('loading');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        // Image data
+        let sourceImage = null;
+        let targetImage = null;
+        let resultImageData = null;
+        
+        // Event Listeners for image upload
+        sourceInput.addEventListener('change', function(e) {
+            handleImageUpload(e, 'source');
+        });
+        
+        targetInput.addEventListener('change', function(e) {
+            handleImageUpload(e, 'target');
+        });
+        
+        // Handle image upload
+        function handleImageUpload(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    if (type === 'source') {
+                        sourceImage = img;
+                        sourcePreview.src = e.target.result;
+                        sourcePreview.style.display = 'block';
+                        sourcePlaceholder.style.display = 'none';
+                    } else {
+                        targetImage = img;
+                        targetPreview.src = e.target.result;
+                        targetPreview.style.display = 'block';
+                        targetPlaceholder.style.display = 'none';
+                    }
+                    
+                    // Enable swap button if both images are loaded
+                    if (sourceImage && targetImage) {
+                        swapBtn.disabled = false;
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Face swap simulation
+        swapBtn.addEventListener('click', function() {
+            if (!sourceImage || !targetImage) {
+                alert('Please upload both source and target images first.');
+                return;
+            }
+            
+            // Show loading indicator
+            loading.style.display = 'block';
+            swapBtn.disabled = true;
+            
+            // Simulate AI processing (in a real app, this would call an API)
+            setTimeout(() => {
+                // Create a canvas to simulate face swap result
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas dimensions to target image size
+                canvas.width = targetImage.width;
+                canvas.height = targetImage.height;
+                
+                // Draw target image
+                ctx.drawImage(targetImage, 0, 0);
+                
+                // Draw source face on target image (simplified face swap simulation)
+                // In a real app, this would involve face detection and precise alignment
+                const faceWidth = Math.min(targetImage.width, targetImage.height) * 0.4;
+                const faceHeight = faceWidth;
+                const faceX = (targetImage.width - faceWidth) / 2;
+                const faceY = (targetImage.height - faceHeight) / 3;
+                
+                // Create circular clipping for face
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(faceX + faceWidth/2, faceY + faceHeight/2, faceWidth/2, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                
+                // Draw source image as face
+                ctx.drawImage(
+                    sourceImage, 
+                    0, 0, sourceImage.width, sourceImage.height,
+                    faceX, faceY, faceWidth, faceHeight
+                );
+                
+                ctx.restore();
+                
+                // Get result as data URL
+                resultImageData = canvas.toDataURL('image/jpeg', 0.9);
+                resultImage.src = resultImageData;
+                
+                // Hide loading, show result
+                loading.style.display = 'none';
+                resultImage.style.display = 'block';
+                resultPlaceholder.style.display = 'none';
+                resultSection.style.display = 'block';
+                swapBtn.disabled = false;
+                
+                // Scroll to result
+                resultSection.scrollIntoView({ behavior: 'smooth' });
+            }, 2000); // Simulate 2-second processing time
+        });
+        
+        // Download result
+        downloadBtn.addEventListener('click', function() {
+            if (!resultImageData) return;
+            
+            const link = document.createElement('a');
+            link.href = resultImageData;
+            link.download = 'faceswap-result.jpg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mobileMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Disable swap button initially
+        swapBtn.disabled = true;
+        
+        // Add drag and drop functionality
+        ['sourceUpload', 'targetUpload'].forEach((id, index) => {
+            const uploadBox = document.getElementById(id);
+            const input = index === 0 ? sourceInput : targetInput;
+            
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            // Highlight drop area when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadBox.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                uploadBox.style.borderColor = 'var(--primary)';
+                uploadBox.style.backgroundColor = 'rgba(109, 40, 217, 0.05)';
+            }
+            
+            function unhighlight() {
+                uploadBox.style.borderColor = '#d1d5db';
+                uploadBox.style.backgroundColor = 'var(--secondary)';
+            }
+            
+            // Handle dropped files
+            uploadBox.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    // Create a fake event to reuse the handleImageUpload function
+                    const event = { target: { files: files } };
+                    handleImageUpload(event, index === 0 ? 'source' : 'target');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
