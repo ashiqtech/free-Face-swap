@@ -1,0 +1,11 @@
+{
+  "name": "faceswap-web-app",
+  "version": "1.0.0",
+  "description": "Free AI face swapping web application",
+  "scripts": {
+    "start": "serve -s"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
