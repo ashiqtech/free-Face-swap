@@ -988,7 +988,18 @@
                 
                 // Create realistic face swap result
                 setTimeout(() => {
-                    generateRealisticFaceSwap();
+                    async function callDeepFaceLabAPI(sourceImg, targetImg) {
+    const formData = new FormData();
+    formData.append('source', sourceImg);
+    formData.append('target', targetImg);
+    
+    const response = await fetch('https://api.deepfacelab.com/swap', {
+        method: 'POST',
+        body: formData
+    });
+    
+    return await response.blob();
+}
                     
                     // Hide loading, show result
                     loading.style.display = 'none';
